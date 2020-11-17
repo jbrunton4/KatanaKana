@@ -33,6 +33,9 @@ function startGame() {
   document.getElementById("game").style.opacity = 1;
   document.getElementById("game").style.pointerEvents = "all";
 
+  // change the background to the game background
+  document.getElementById("mainBody").style.backgroundImage = "url('assets/img/gameBg.jpg')";
+
   // generate a question and update the UI
   generateNewQuestion();
   updateUI();
