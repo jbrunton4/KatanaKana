@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Katana Kana!</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/app.js"></script>
+  </head>
+  <body style="background-image: url('assets/img/menuBg.jpg');"onload="onLoad();">
+
+    <label id="roundNumber"><h1>1</h1></label>
+
+    <div id="menu">
+      <div id="logo">
+        <img src="assets/img/logo.png" alt="logo"></img><br>
+      </div>
+      <input type="checkbox" id="hiraCheck" onclick="updateSettings();">ひらがな</input><br>
+      <input type="checkbox" id="kataCheck" onclick="updateSettings();">カタカナ</input><br>
+      <input type="button" value="開始!" onclick="startGame();" id="startBtn"><br>
+      <label id="credits">By JoshBrunton_ & Winter<label>
+    </div>
+
+    <div id="game">
+      <label id="questionCounter"><b><h1>Questions: 0/100</h1></b></label>
+
+      <div id="enemy">
+        <div id="healthbar">
+          <div id="progress">
+            <label id="health">100%</label>
+          </div>
+        </div>
+        <img src="assets/img/slime.png" alt="Enemy" id="enemyImg"></img>
+      </div>
+
+      <label id="questionLabel">あ</label>
+      <input type="text" id="answerInput" placeholder="A"></input>
+
+    </div>
+  </body>
+</html>
