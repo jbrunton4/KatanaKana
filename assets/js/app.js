@@ -92,6 +92,8 @@ function checkAnswer() {
     alert("Round Success!");
     rounds += 1;
     enemyHealth -= 1;
+    var audio = new Audio("assets/snd/death.wav");
+    audio.play();
   } else if (questions <= 0) {
     alert("Game over");
     rounds = 0;
