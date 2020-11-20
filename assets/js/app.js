@@ -97,13 +97,28 @@ function checkAnswer() {
     enemyHealth -= 1;
     var audio = new Audio("assets/snd/death.wav");
     audio.play();
+    enemyHealth = 80;
+    questions = 100;
+    startGame();
   } else if (questions <= 0) {
-    alert("Game over");
-    rounds = 0;
+    gameOver();
+    return;
   }
 
   generateNewQuestion();
   updateUI();
+}
+
+// define a function for when the game ends & to restart
+function gameOver() {
+
+  alert("Game over!");
+
+  rounds = 1;
+  enemyHealth = 80;
+  questions = 100;
+
+  startGame();
 }
 
 // add an event listener for the enter key to run checkAnswer()
