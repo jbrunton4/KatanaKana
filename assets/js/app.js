@@ -24,8 +24,6 @@ function updateSettings() {
 function onLoad() {
   document.getElementById("hiraCheck").checked = enableHira;
   document.getElementById("kataCheck").checked = enableKata;
-
-  document.getElementById("feedback").invisible = true;
 }
 
 // create a function to start the game
