@@ -11,6 +11,8 @@ var questions = 100;
 var enableHira = true;
 var enableKata = true;
 var currentQuestion = [];
+var prevQuestion = [];
+var wrongAnswers = [];
 
 // function to update the settings when a checkbox is altered
 function updateSettings() {
@@ -22,10 +24,18 @@ function updateSettings() {
 function onLoad() {
   document.getElementById("hiraCheck").checked = enableHira;
   document.getElementById("kataCheck").checked = enableKata;
+
+  document.getElementById("feedback").invisible = true;
 }
 
 // create a function to start the game
 function startGame() {
+
+  // reset some variables
+  wrongAnswers = [];
+  prevQuestion = [];
+  document.getElementById("prev").style.color = "transparent";
+
   document.getElementById("menu").style.opacity = 0; // make the div invisible
   document.getElementById("menu").style.pointerEvents = "none"; // avoid interaction
 
@@ -49,10 +59,13 @@ function updateUI() {
   document.getElementById("questionCounter").innerHTML = questions;
 
   document.getElementById("questionLabel").innerHTML = currentQuestion[0];
+  document.getElementById("prev").innerHTML = "Previous: " + prevQuestion
 }
 
 // functions to generate a new question and update the UI accordingly
 function generateNewQuestion() {
+
+  prevQuestion = currentQuestion;
 
   currentQuestion = fetchCharSet();
 
@@ -83,8 +96,11 @@ function checkAnswer() {
   if (answer == currentQuestion[1]) {
     enemyHealth -= 1;
     var audio = new Audio("assets/snd/correct.mp3");
+    document.getElementById("prev").style.color = "#00ff00";
   } else {
     var audio = new Audio("assets/snd/wrong.mp3");
+    wrongAnswers.push(" " + currentQuestion[0] + ":" + currentQuestion[1]);
+    document.getElementById("prev").style.color = "#ff0000";
   }
 
   audio.play();
@@ -103,6 +119,9 @@ function checkAnswer() {
   } else if (questions <= 0) {
     gameOver();
     return;
+  } else if (enemyHealth <= 0) {
+    gameOver();
+    return;
   }
 
   generateNewQuestion();
@@ -113,6 +132,16 @@ function checkAnswer() {
 function gameOver() {
 
   alert("Game over!");
+
+  review = wrongAnswers.filter(function(item, pos) {
+    return wrongAnswers.indexOf(item) == pos;
+  })
+
+  if (100 - wrongAnswers.length == 100) {
+    alert("Wow! A perfect score! Well done!");
+  } else {
+    alert("Your accuracy was " + (100 - wrongAnswers.length) + "%, and it might be time to review the following kana: " + review);
+  }
 
   rounds = 1;
   enemyHealth = 80;
@@ -127,5 +156,7 @@ function checkLeyPress(key) {
   if (key.keyCode == "13") {
     checkAnswer();
     document.getElementById("answerInput").value = "";
+  } else if (key.keyCode == "221") { // ] to cut to game over
+    gameOver();
   }
 }

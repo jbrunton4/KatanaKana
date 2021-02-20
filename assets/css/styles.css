@@ -60,6 +60,7 @@ body {
 
 
 
+
 #game {
   opacity: 0; /* start as opaque */
   pointer-events: none; /* and click-through! */
@@ -104,4 +105,8 @@ body {
 #game #enemy #enemyImg {
   width: 500px;
   height: auto;
+}
+
+#game #prev {
+  color: transparent;
 }
